@@ -12,12 +12,24 @@ namespace ContactApp.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Contact> Contact { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
 
-        public DbSet<Contact> Contact { get; set; }
-        
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Contact>(entity => {
+                entity.HasIndex(e => e.Email).IsUnique();
+            });
+        }
+
+
+
     }
 }

@@ -59,7 +59,7 @@ namespace ContactApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OwnerId,FirstName,LastName,Email,Password,MobilePhone,DateOfBirth,Category")] Contact contact)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,Password,MobilePhone,DateOfBirth,Category")] Contact contact)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace ContactApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,OwnerId,FirstName,LastName,Email,Password,MobilePhone,DateOfBirth,Category")] Contact contact)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,Password,MobilePhone,DateOfBirth,Category")] Contact contact)
         {
             if (id != contact.Id)
             {
