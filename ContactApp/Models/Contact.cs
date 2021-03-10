@@ -23,13 +23,17 @@ namespace ContactApp.Models
         public DateTime DateOfBirth { get; set; }
 
         public ContactCategory Category { get; set; }
-        public ContactSubcategory Subcategory { get; set; }
+        
+        public string Subcategory { get; set; }
+
+        //public ContactSubcategory Subcategory { get; set; }
+
     }
 
     public enum ContactCategory
     {
-        Business,
         Private,
+        Business,
         Other
     }
 
@@ -38,4 +42,5 @@ namespace ContactApp.Models
         Boss,
         Client
     }
+
 }

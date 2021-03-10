@@ -31,11 +31,6 @@ namespace ContactApp.Data
                 .IsUnique()
                 ;
             });
-
-            builder.Entity<Contact>()
-                .Property(entity => entity.Subcategory)
-                .HasConversion<string>();
-            
         }
 
 
