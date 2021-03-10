@@ -91,7 +91,7 @@ namespace ContactApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,Password,MobilePhone,DateOfBirth,Category")] Contact contact)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,Password,MobilePhone,DateOfBirth,Category,Subcategory")] Contact contact)
         {
             if (id != contact.Id)
             {
@@ -153,6 +153,17 @@ namespace ContactApp.Controllers
         private bool ContactExists(int id)
         {
             return _context.Contact.Any(e => e.Id == id);
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult VerifyEmail(string email)
+        {
+            if (_context.Contact.Any(o => o.Email.Equals(email)))
+            {
+                return Json($"Email is already in use.");
+            }
+
+            return Json(true);
         }
     }
 }

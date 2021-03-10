@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,7 +13,7 @@ namespace ContactApp.Models
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        [UniqueEmail]
+        [Remote(action: "VerifyEmail", controller:"Contacts")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         public string Password { get; set; }
@@ -22,6 +23,7 @@ namespace ContactApp.Models
         public DateTime DateOfBirth { get; set; }
 
         public ContactCategory Category { get; set; }
+        public ContactSubcategory Subcategory { get; set; }
     }
 
     public enum ContactCategory
@@ -31,22 +33,9 @@ namespace ContactApp.Models
         Other
     }
 
-    public class UniqueEmail : ValidationAttribute
+    public enum ContactSubcategory
     {
-        public UniqueEmail()
-        {
-            ErrorMessage = "Email is already in use.";
-        }
-
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            var contact = (Contact)validationContext.ObjectInstance;
-            var email = (string)value;
-            if (contact.Email.Equals(email))
-            {
-                return new ValidationResult(ErrorMessage);
-            }
-            return ValidationResult.Success;
-        }
+        Boss,
+        Client
     }
 }

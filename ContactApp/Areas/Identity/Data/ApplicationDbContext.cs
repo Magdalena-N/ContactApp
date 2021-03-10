@@ -7,6 +7,8 @@ using ContactApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Newtonsoft.Json;
 
 namespace ContactApp.Data
 {
@@ -24,10 +26,18 @@ namespace ContactApp.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Contact>(entity => {
-                entity.HasIndex(e => e.Email).IsUnique();
+            builder.Entity<Contact>(entity => {entity
+                .HasIndex(e => e.Email)
+                .IsUnique()
+                ;
             });
+
+            builder.Entity<Contact>()
+                .Property(entity => entity.Subcategory)
+                .HasConversion<string>();
+            
         }
+
 
 
 
